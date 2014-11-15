@@ -1,4 +1,5 @@
 src/main/resources/hbase.properties
+*.jpg
 
 # Created by .gitignore support plugin (hsz.mobi)
 ### JetBrains template

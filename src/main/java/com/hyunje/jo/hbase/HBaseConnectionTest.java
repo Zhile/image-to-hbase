@@ -1,5 +1,6 @@
 package com.hyunje.jo.hbase;
 
+import com.hyunje.jo.hbase.util.PropertyLoader;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -58,7 +59,7 @@ public class HBaseConnectionTest {
         String value1String = new String(value1);
         String value2String = new String(value2);
 
-        System.out.println("Get : "+"Id : "+value1String+"Name : "+value2String);
+        System.out.println("Get [ Id : "+value1String+", Name : "+value2String+" ]");
 
         admin.close();
 
