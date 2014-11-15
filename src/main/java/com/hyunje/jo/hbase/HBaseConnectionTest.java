@@ -20,15 +20,12 @@ import java.util.Properties;
 public class HBaseConnectionTest {
     public static void main(String[] args) throws IOException {
 
-        Properties hbaseProp = new PropertyLoader().getProperties();
+        Properties hBaseProp = new PropertyLoader().getProperties();
 
         Configuration configuration = HBaseConfiguration.create();
-        configuration.set("hbase.master","165.246.44.76");
-//        configuration.set("hbase.master",hbaseProp.getProperty("host"));
-        configuration.set("hbase.zookeeper.quorum", "165.246.44.76");
-//        configuration.set("hbase.zookeeper.quorum", hbaseProp.getProperty("zooquorum"));
-        configuration.set("hbase.zookeeper.property.clientPort","22181");
-//        configuration.set("hbase.zookeeper.property.clientPort",hbaseProp.getProperty("zooport"));
+        configuration.set("hbase.master", hBaseProp.getProperty("host"));
+        configuration.set("hbase.zookeeper.quorum", hBaseProp.getProperty("zooquorum"));
+        configuration.set("hbase.zookeeper.property.clientPort",hBaseProp.getProperty("zooport"));
 
         HTableDescriptor tableDescriptor = new HTableDescriptor(TableName.valueOf("User"));
         tableDescriptor.addFamily(new HColumnDescriptor("Id"));
@@ -63,8 +60,9 @@ public class HBaseConnectionTest {
 
         System.out.println("Get : "+"Id : "+value1String+"Name : "+value2String);
 
+        admin.close();
+
         System.out.println("Done");
-        admin.shutdown();
     }
     public static void createOrOverwrite(HBaseAdmin admin, HTableDescriptor table) throws IOException {
         if (admin.tableExists(table.getName())) {
