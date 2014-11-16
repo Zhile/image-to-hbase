@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Description
+ * HBase에 Image를 저장하는 과정에 대한 클래스.
  *
  * @author hyunje
  * @since 14. 11. 15.
@@ -27,6 +27,9 @@ import java.util.Properties;
 public class SaveImageToHBase {
     public static final String TableName = "Image";
     public static final String imgPath = "testimg.jpg";
+    public static final String FileNameColumn = "Filename";
+    public static final String DataColumn = "Data";
+    public static final String DataQualifier = "data";
 
     public static void main(String[] args) throws IOException {
         Properties hBaseProp = new PropertyLoader().getProperties();
@@ -38,8 +41,8 @@ public class SaveImageToHBase {
 
 
         HTableDescriptor imageTableDescriptor = new HTableDescriptor(org.apache.hadoop.hbase.TableName.valueOf(TableName));
-        imageTableDescriptor.addFamily(new HColumnDescriptor("Filename"));
-        imageTableDescriptor.addFamily(new HColumnDescriptor("Data"));
+        imageTableDescriptor.addFamily(new HColumnDescriptor(FileNameColumn));
+        imageTableDescriptor.addFamily(new HColumnDescriptor(DataColumn));
 
         System.out.println("Connecting");
         HBaseAdmin admin = new HBaseAdmin(configuration);
@@ -50,8 +53,8 @@ public class SaveImageToHBase {
 
         System.out.println("Loading Image");
         Put image = new Put(Bytes.toBytes("1"));
-        image.add(Bytes.toBytes("Filename"), Bytes.toBytes("data"),Bytes.toBytes(imgPath));
-        image.add(Bytes.toBytes("Data"),Bytes.toBytes("data"), extractBytes(imgPath));
+        image.add(Bytes.toBytes(FileNameColumn), Bytes.toBytes(DataQualifier),Bytes.toBytes(imgPath));
+        image.add(Bytes.toBytes(DataColumn),Bytes.toBytes(DataQualifier), extractBytes(imgPath));
 
         System.out.println("Insert Image");
         table.put(image);

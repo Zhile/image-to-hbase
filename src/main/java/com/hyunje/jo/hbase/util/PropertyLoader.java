@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Description
+ * HBase에 연결하기 위한 기본 값들을 가져오는 클래스
  *
  * @author hyunje
  * @since 14. 11. 14.

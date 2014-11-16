@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 /**
- * Description
+ * HBase에 연결 테스트 클래스.
  *
  * @author hyunje
  * @since 14. 11. 13.
